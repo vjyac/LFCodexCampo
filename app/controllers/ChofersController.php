@@ -93,7 +93,7 @@ class ChofersController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$chofer = chofer::find($id);
+		$chofer = Chofer::find($id);
 		$title = "Editar chofer";
 
         return View::make('chofers.edit', array('title' => $title, 'chofer' => $chofer));
@@ -109,7 +109,7 @@ class ChofersController extends BaseController {
 	{
 
 
-		$chofer = chofer::find($id);
+		$chofer = Chofer::find($id);
 
 
 
@@ -121,9 +121,9 @@ class ChofersController extends BaseController {
 		];
 
 
-		if (! chofer::isValid(Input::all(),$rules)) {
+		if (! Chofer::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(chofer::$errors);
+			return Redirect::back()->withInput()->withErrors(Chofer::$errors);
 
 		}
 
