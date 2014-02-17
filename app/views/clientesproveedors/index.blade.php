@@ -39,7 +39,7 @@
 
 											foreach ($clientesproveedors as $clientesproveedor)
 											{
-													$ciudad = ciudad::find($clientesproveedor->ciudads_id);
+													$ciudad = Ciudad::find($clientesproveedor->ciudads_id);
 													echo "<tr>";
 											        echo "<td>" . $clientesproveedor->clientesproveedor . "</td>";
 											        echo "<td>" . $clientesproveedor->tipo . "</td>";
@@ -98,6 +98,6 @@
 
 	?>	
 
-<script src="js/app.v2.js"></script>
+<script src="/js/app.v2.js"></script>
 
 @stop

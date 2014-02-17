@@ -67,8 +67,8 @@
 
 											foreach ($establecimientos as $establecimiento)
 											{
-													$clientesproveedor = clientesproveedor::find($establecimiento->clientesproveedors_id);
-													$ciudad = ciudad::find($establecimiento->ciudads_id);
+													$clientesproveedor = Clientesproveedor::find($establecimiento->clientesproveedors_id);
+													$ciudad = Ciudad::find($establecimiento->ciudads_id);
 
 													echo "<tr>";
 											        echo "<td>" . $establecimiento->establecimiento . "</td>";

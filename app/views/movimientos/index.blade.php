@@ -41,11 +41,11 @@
 											foreach ($movimientos as $movimiento)
 												{
 
-														$lote = lote::find($movimiento->lotes_id);
-									                	$establecimiento = establecimiento::find($lote->establecimientos_id);
-									                	$clientesproveedor = clientesproveedor::find($establecimiento->clientesproveedors_id);
+														$lote = Lote::find($movimiento->lotes_id);
+									                	$establecimiento = Establecimiento::find($lote->establecimientos_id);
+									                	$clientesproveedor = Clientesproveedor::find($establecimiento->clientesproveedors_id);
 
-														$documentostipo = documentostipo::find($movimiento->documentostipos_id);
+														$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
 
 														echo "<tr>";
 												        echo "<td>" . $movimiento->fecha . "</td>";

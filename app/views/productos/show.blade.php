@@ -20,8 +20,8 @@
 					{{ Form::hidden('_method', 'DELETE') }}
 
 					<?php
-						$actividad = actividad::find($producto->actividads_id);
-						$productosunidadmedida = productosunidadmedida::find($producto->productosunidadmedidas_id);
+						$actividad = Actividad::find($producto->actividads_id);
+						$productosunidadmedida = Productosunidadmedida::find($producto->productosunidadmedidas_id);
 					?>
 
 

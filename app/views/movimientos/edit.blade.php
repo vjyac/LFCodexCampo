@@ -26,14 +26,14 @@
 		<?php
 			
 
-				$proveedorcliente = clientesproveedor::find($movimiento->proveedorcliente_id);
-				$contratista = clientesproveedor::find($movimiento->contratistas_id);
-				$lote = lote::find($movimiento->lotes_id);
-				$documentostipo = documentostipo::find($movimiento->documentostipos_id);
-				$chofer = chofer::find($movimiento->chofers_id);
-				$vehiculo = vehiculo::find($movimiento->vehiculos_id);
-				$movimientomotivo = movimientomotivo::find($movimiento->movimientomotivos_id);
-				$producto = producto::find($movimiento->productos_id);
+				$proveedorcliente = Clientesproveedor::find($movimiento->proveedorcliente_id);
+				$contratista = Clientesproveedor::find($movimiento->contratistas_id);
+				$lote = Lote::find($movimiento->lotes_id);
+				$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
+				$chofer = Chofer::find($movimiento->chofers_id);
+				$vehiculo = Vehiculo::find($movimiento->vehiculos_id);
+				$movimientomotivo = Movimientomotivo::find($movimiento->movimientomotivos_id);
+				$producto = Producto::find($movimiento->productos_id);
 
 
 

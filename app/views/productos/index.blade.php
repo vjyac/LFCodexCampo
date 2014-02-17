@@ -45,8 +45,8 @@
 											{
 													
 
-													$actividad = actividad::find($producto->actividads_id);
-													$productosunidadmedida = productosunidadmedida::find($producto->productosunidadmedidas_id);
+													$actividad = Actividad::find($producto->actividads_id);
+													$productosunidadmedida = Productosunidadmedida::find($producto->productosunidadmedidas_id);
 
 													echo "<tr>";
 													echo "<td>" . $producto->producto_codigo . "</td>";
@@ -109,6 +109,6 @@
 
 	?>	
 
-<script src="js/app.v2.js"></script>
+<script src="/js/app.v2.js"></script>
 
 @stop

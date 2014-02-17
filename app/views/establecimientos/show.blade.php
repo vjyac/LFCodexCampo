@@ -30,8 +30,8 @@
 
 					<?php
 
-							$clientesproveedor = clientesproveedor::find($establecimiento->clientesproveedors_id);
-							$ciudad = ciudad::find($establecimiento->ciudads_id);
+							$clientesproveedor = Clientesproveedor::find($establecimiento->clientesproveedors_id);
+							$ciudad = Ciudad::find($establecimiento->ciudads_id);
 						
 					?>
 

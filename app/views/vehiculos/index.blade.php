@@ -44,7 +44,7 @@
 											foreach ($vehiculos as $vehiculo)
 											{
 													
-													$clientesproveedor = clientesproveedor::find($vehiculo->clientesproveedors_id);
+													$clientesproveedor = Clientesproveedor::find($vehiculo->clientesproveedors_id);
 
 													echo "<tr>";
 											        echo "<td>" . $vehiculo->patente . "</td>";

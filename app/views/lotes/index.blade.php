@@ -41,7 +41,7 @@
 
 											foreach ($lotes as $lote)
 											{
-													$establecimiento = establecimiento::find($lote->establecimientos_id);
+													$establecimiento = Establecimiento::find($lote->establecimientos_id);
 													echo "<tr>";
 													echo "<td>" . $lote->lote . "</td>";
 											        echo "<td>" . $establecimiento->establecimiento . "</td>";
@@ -97,6 +97,6 @@
 
 	?>	
 
-<script src="js/app.v2.js"></script>
+<script src="/js/app.v2.js"></script>
 
 @stop

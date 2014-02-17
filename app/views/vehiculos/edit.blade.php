@@ -27,7 +27,7 @@
 
 
 							<?php
-								$clientesproveedor = clientesproveedor::find($vehiculo->clientesproveedors_id);
+								$clientesproveedor = Clientesproveedor::find($vehiculo->clientesproveedors_id);
 							?>
 
 

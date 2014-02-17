@@ -31,7 +31,7 @@
 
 
 					<?php
-							$establecimiento = establecimiento::find($lote->establecimientos_id);
+							$establecimiento = Establecimiento::find($lote->establecimientos_id);
 					?>
 
 

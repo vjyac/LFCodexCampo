@@ -43,4 +43,5 @@
 		</div>
 	</div>
 
+<script src="/js/app.v2.js"></script>
 @stop

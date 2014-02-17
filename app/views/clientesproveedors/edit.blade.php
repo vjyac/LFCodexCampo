@@ -26,7 +26,7 @@
 
 						
 					<?php
-						$ciudad = ciudad::find($clientesproveedor->ciudads_id);
+						$ciudad = Ciudad::find($clientesproveedor->ciudads_id);
 					?>
 
 
