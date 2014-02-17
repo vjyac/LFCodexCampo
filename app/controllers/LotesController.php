@@ -160,8 +160,8 @@ class LotesController extends BaseController {
             foreach ($lotes as $lote)
                 {
 
-                	$establecimiento = establecimiento::find($lote->establecimientos_id);
-                	$clientesproveedor = clientesproveedor::find($establecimiento->clientesproveedors_id);
+                	$establecimiento = Establecimiento::find($lote->establecimientos_id);
+                	$clientesproveedor = Clientesproveedor::find($establecimiento->clientesproveedors_id);
 
                     $adevol[] = array(
                         'id' => $lote->id,
