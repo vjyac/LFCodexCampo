@@ -45,13 +45,13 @@ class DocumentostiposController extends BaseController {
 		];
 
 
-		if (! documentostipo::isValid(Input::all(),$rules)) {
+		if (! Documentostipo::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(documentostipo::$errors);
+			return Redirect::back()->withInput()->withErrors(Documentostipo::$errors);
 
 		}
 
-		$documentostipo = new documentostipo;
+		$documentostipo = new Documentostipo;
 
 		$documentostipo->documentostipo = Input::get('documentostipo');
 
@@ -70,7 +70,7 @@ class DocumentostiposController extends BaseController {
 	public function show($id)
 	{
 
-		$documentostipo = documentostipo::find($id);
+		$documentostipo = Documentostipo::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('documentostipos.show')
@@ -87,7 +87,7 @@ class DocumentostiposController extends BaseController {
 	public function edit($id)
 	{
 
-		$documentostipo = documentostipo::find($id);
+		$documentostipo = Documentostipo::find($id);
 		$title = "Editar documentos tipos";
 
         return View::make('documentostipos.edit', array('title' => $title, 'documentostipo' => $documentostipo));
@@ -102,15 +102,15 @@ class DocumentostiposController extends BaseController {
 	public function update($id)
 	{
 
-		$documentostipo = documentostipo::find($id);
+		$documentostipo = Documentostipo::find($id);
 
 		$rules = [
 				'documentostipo' => 'required|unique:documentostipos,documentostipo,' . $id
 		];
 
-		if (! documentostipo::isValid(Input::all(),$rules)) {
+		if (! Documentostipo::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(documentostipo::$errors);
+			return Redirect::back()->withInput()->withErrors(Documentostipo::$errors);
 
 		}
 
@@ -133,7 +133,7 @@ class DocumentostiposController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$documentostipo = documentostipo::find($id)->delete();
+		$documentostipo = Documentostipo::find($id)->delete();
 
 		return Redirect::to('/documentostipos');
 	}

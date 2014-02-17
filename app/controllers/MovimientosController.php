@@ -58,13 +58,13 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
-		$movimiento = new movimiento;
+		$movimiento = new Movimiento;
 
 
 		$movimiento->fecha = date("Y-m-d", strtotime(Input::get('fecha')));
@@ -104,7 +104,7 @@ class MovimientosController extends BaseController {
 	public function show($id)
 	{
 
-		$movimiento = movimiento::find($id);
+		$movimiento = Movimiento::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('movimientos.show')
@@ -120,7 +120,7 @@ class MovimientosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$movimiento = movimiento::find($id);
+		$movimiento = Movimiento::find($id);
 		$title = "Editar movimientos";
 
         return View::make('movimientos.edit', array('title' => $title, 'movimiento' => $movimiento));
@@ -140,7 +140,7 @@ class MovimientosController extends BaseController {
 		// die;
 
 
-		$movimiento = movimiento::find($id);
+		$movimiento = Movimiento::find($id);
 
 		$rules = [
 			'fecha' => 'required',
@@ -157,9 +157,9 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
@@ -201,7 +201,7 @@ class MovimientosController extends BaseController {
 		$input = Input::all();		
 
 		
-		$movimiento = movimiento::find($id)->delete();
+		$movimiento = Movimiento::find($id)->delete();
 
 		return Redirect::to('/movimientos');
 	}
@@ -249,14 +249,14 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
 		$contratista_id = Input::get('contratista_id');
-		$clientesproveedor = clientesproveedor::find($contratista_id);
+		$clientesproveedor = Clientesproveedor::find($contratista_id);
 
 		$productos_id = Input::get('productos_id',0);
 		
@@ -397,11 +397,11 @@ class MovimientosController extends BaseController {
 				$productos_id = $movimiento->productos_id;
 			}
 
-			$documentostipo = documentostipo::find($movimiento->documentostipos_id);
-			$lote = lote::find($movimiento->lotes_id);
-			$establecimiento = establecimiento::find($lote->establecimientos_id);
-			$producto = producto::find($movimiento->productos_id);
-			$productosunidadmedida = productosunidadmedida::find($producto->productosunidadmedidas_id);
+			$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
+			$lote = Lote::find($movimiento->lotes_id);
+			$establecimiento = Establecimiento::find($lote->establecimientos_id);
+			$producto = Producto::find($movimiento->productos_id);
+			$productosunidadmedida = Productosunidadmedida::find($producto->productosunidadmedidas_id);
 
 			$html .= "<tr>";
 			$html .= "<td>" . $movimiento->fecha . "</td>";
@@ -480,14 +480,14 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
 		$proveedorcliente_id = Input::get('proveedorcliente_id');
-		$clientesproveedor = clientesproveedor::find($proveedorcliente_id);
+		$clientesproveedor = Clientesproveedor::find($proveedorcliente_id);
 
 		$productos_id = Input::get('productos_id',0);
 		
@@ -550,7 +550,7 @@ class MovimientosController extends BaseController {
 		$html .= '<h4>Proveedor: ' . $clientesproveedor->clientesproveedor . '</h4>';
 
 		if ($productos_id > 0) {
-			$producto = producto::find($productos_id);	
+			$producto = Producto::find($productos_id);	
 			$html .= '<h4>Producto: ' . $producto->producto . '</h4>';
 		} else {
 			$html .= '<h4>Producto: Todos</h4>';
@@ -601,10 +601,10 @@ class MovimientosController extends BaseController {
 
 
 
-					$documentostipo = documentostipo::find($movimiento->documentostipos_id);
-					$lote = lote::find($movimiento->lotes_id);
-					$establecimiento = establecimiento::find($lote->establecimientos_id);
-					$producto = producto::find($movimiento->productos_id);
+					$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
+					$lote = Lote::find($movimiento->lotes_id);
+					$establecimiento = Establecimiento::find($lote->establecimientos_id);
+					$producto = Producto::find($movimiento->productos_id);
 
 					$html .= "<tr>";
 					$html .= "<td>" . $movimiento->fecha . "</td>";
@@ -705,14 +705,14 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
 		$proveedorcliente_id = Input::get('proveedorcliente_id');
-		$clientesproveedor = clientesproveedor::find($proveedorcliente_id);
+		$clientesproveedor = Clientesproveedor::find($proveedorcliente_id);
 
 		$productos_id = Input::get('productos_id',0);
 		
@@ -775,7 +775,7 @@ class MovimientosController extends BaseController {
 		$html .= '<h4>Proveedor: ' . $clientesproveedor->clientesproveedor . '</h4>';
 
 		if ($productos_id > 0) {
-			$producto = producto::find($productos_id);	
+			$producto = Producto::find($productos_id);	
 			$html .= '<h4>Producto: ' . $producto->producto . '</h4>';
 		} else {
 			$html .= '<h4>Producto: Todos</h4>';
@@ -854,11 +854,11 @@ class MovimientosController extends BaseController {
 				$productos_id = $movimiento->productos_id;
 			}
 
-			$documentostipo = documentostipo::find($movimiento->documentostipos_id);
-			$lote = lote::find($movimiento->lotes_id);
-			$establecimiento = establecimiento::find($lote->establecimientos_id);
-			$producto = producto::find($movimiento->productos_id);
-			$productosunidadmedida = productosunidadmedida::find($producto->productosunidadmedidas_id);
+			$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
+			$lote = Lote::find($movimiento->lotes_id);
+			$establecimiento = Establecimiento::find($lote->establecimientos_id);
+			$producto = Producto::find($movimiento->productos_id);
+			$productosunidadmedida = Productosunidadmedida::find($producto->productosunidadmedidas_id);
 
 			$html .= "<tr>";
 			$html .= "<td>" . $movimiento->fecha . "</td>";
@@ -958,14 +958,14 @@ class MovimientosController extends BaseController {
 		];
 
 
-		if (! movimiento::isValid(Input::all(),$rules)) {
+		if (! Movimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimiento::$errors);
 
 		}
 
 		$proveedorcliente_id = Input::get('proveedorcliente_id');
-		$clientesproveedor = clientesproveedor::find($proveedorcliente_id);
+		$clientesproveedor = Clientesproveedor::find($proveedorcliente_id);
 
 		$productos_id = Input::get('productos_id',0);
 		
@@ -1028,7 +1028,7 @@ class MovimientosController extends BaseController {
 		$html .= '<h4>Proveedor: ' . $clientesproveedor->clientesproveedor . '</h4>';
 
 		if ($productos_id > 0) {
-			$producto = producto::find($productos_id);	
+			$producto = Producto::find($productos_id);	
 			$html .= '<h4>Producto: ' . $producto->producto . '</h4>';
 		} else {
 			$html .= '<h4>Producto: Todos</h4>';
@@ -1116,11 +1116,11 @@ class MovimientosController extends BaseController {
 										$productos_id_use = $movimiento->productos_id;
 									}
 
-									$documentostipo = documentostipo::find($movimiento->documentostipos_id);
-									$lote = lote::find($movimiento->lotes_id);
-									$establecimiento = establecimiento::find($lote->establecimientos_id);
-									$producto = producto::find($movimiento->productos_id);
-									$productosunidadmedida = productosunidadmedida::find($producto->productosunidadmedidas_id);
+									$documentostipo = Documentostipo::find($movimiento->documentostipos_id);
+									$lote = Lote::find($movimiento->lotes_id);
+									$establecimiento = Establecimiento::find($lote->establecimientos_id);
+									$producto = Producto::find($movimiento->productos_id);
+									$productosunidadmedida = Productosunidadmedida::find($producto->productosunidadmedidas_id);
 
 									$html .= "<tr>";
 									$html .= "<td>" . $movimiento->fecha . "</td>";

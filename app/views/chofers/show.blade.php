@@ -35,7 +35,7 @@
 
 							<?php
 
-							$ciudad = ciudad::find($chofer->ciudads_id);
+							$ciudad = Ciudad::find($chofer->ciudads_id);
 
 							?>
 

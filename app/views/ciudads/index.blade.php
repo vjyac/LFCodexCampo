@@ -93,6 +93,6 @@
 
 	?>	
 
-<script src="js/app.v2.js"></script>
+<script src="/js/app.v2.js"></script>
 
 @stop

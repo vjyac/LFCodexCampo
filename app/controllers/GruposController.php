@@ -46,14 +46,14 @@ class GruposController extends BaseController {
 		];
 
 
-		if (! grupo::isValid(Input::all(),$rules)) {
+		if (! Grupo::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(grupo::$errors);
+			return Redirect::back()->withInput()->withErrors(Grupo::$errors);
 
 		}
 
 
-		$grupo = new grupo;
+		$grupo = new Grupo;
 		$grupo->grupo = Input::get('grupo');
 		
 		$grupo->save();
@@ -71,7 +71,7 @@ class GruposController extends BaseController {
 	public function show($id)
 	{
 
-		$grupo = grupo::find($id);
+		$grupo = Grupo::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('grupos.show')
@@ -86,7 +86,7 @@ class GruposController extends BaseController {
 
 	public function edit($id)
 	{
-		$grupo = grupo::find($id);
+		$grupo = Grupo::find($id);
 		$title = "Editar grupo";
 
         return View::make('grupos.edit', array('title' => $title, 'grupo' => $grupo));
@@ -100,7 +100,7 @@ class GruposController extends BaseController {
 	public function update($id) {
 
 
-		$grupo = grupo::find($id);
+		$grupo = Grupo::find($id);
 
 
 		$rules = [
@@ -110,9 +110,9 @@ class GruposController extends BaseController {
 
 
 
-		if (! grupo::isValid(Input::all(),$rules)) {
+		if (! Grupo::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(grupo::$errors);
+			return Redirect::back()->withInput()->withErrors(Grupo::$errors);
 
 		}
 
@@ -135,7 +135,7 @@ class GruposController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$grupo = grupo::find($id)->delete();
+		$grupo = Grupo::find($id)->delete();
 
 		return Redirect::to('/grupos');
 	}

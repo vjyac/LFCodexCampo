@@ -46,14 +46,14 @@ class MovimientomotivosController extends BaseController {
 		];
 
 
-		if (! movimientomotivo::isValid(Input::all(),$rules)) {
+		if (! Movimientomotivo::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(movimientomotivo::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimientomotivo::$errors);
 
 		}
 
 
-		$movimientomotivo = new movimientomotivo;
+		$movimientomotivo = new Movimientomotivo;
 		$movimientomotivo->movimientomotivo = Input::get('movimientomotivo');
 		
 		$movimientomotivo->save();
@@ -71,7 +71,7 @@ class MovimientomotivosController extends BaseController {
 	public function show($id)
 	{
 
-		$movimientomotivo = movimientomotivo::find($id);
+		$movimientomotivo = Movimientomotivo::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('movimientomotivos.show')
@@ -86,7 +86,7 @@ class MovimientomotivosController extends BaseController {
 
 	public function edit($id)
 	{
-		$movimientomotivo = movimientomotivo::find($id);
+		$movimientomotivo = Movimientomotivo::find($id);
 		$title = "Editar movimiento";
 
         return View::make('movimientomotivos.edit', array('title' => $title, 'movimientomotivo' => $movimientomotivo));
@@ -100,7 +100,7 @@ class MovimientomotivosController extends BaseController {
 	public function update($id) {
 
 
-		$movimientomotivo = movimientomotivo::find($id);
+		$movimientomotivo = Movimientomotivo::find($id);
 
 
 		$rules = [
@@ -110,9 +110,9 @@ class MovimientomotivosController extends BaseController {
 
 
 
-		if (! movimientomotivo::isValid(Input::all(),$rules)) {
+		if (! Movimientomotivo::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(movimientomotivo::$errors);
+			return Redirect::back()->withInput()->withErrors(Movimientomotivo::$errors);
 
 		}
 
@@ -135,7 +135,7 @@ class MovimientomotivosController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$movimientomotivo = movimientomotivo::find($id)->delete();
+		$movimientomotivo = Movimientomotivo::find($id)->delete();
 
 		return Redirect::to('/movimientomotivos');
 	}

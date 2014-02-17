@@ -44,9 +44,9 @@ class ClientesproveedorsController extends BaseController {
 		];
 
 
-		if (! clientesproveedor::isValid(Input::all(),$rules)) {
+		if (! Clientesproveedor::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(clientesproveedor::$errors);
+			return Redirect::back()->withInput()->withErrors(Clientesproveedor::$errors);
 
 		}
 
@@ -63,7 +63,7 @@ class ClientesproveedorsController extends BaseController {
 
 */
 
-		$clientesproveedor = new clientesproveedor;
+		$clientesproveedor = new Clientesproveedor;
 
 		$clientesproveedor->clientesproveedor = Input::get('clientesproveedor');
 		$clientesproveedor->tipo = Input::get('tipo');
@@ -88,7 +88,7 @@ class ClientesproveedorsController extends BaseController {
 	public function show($id)
 	{
 
-		$clientesproveedor = clientesproveedor::find($id);
+		$clientesproveedor = Clientesproveedor::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('clientesproveedors.show')
@@ -104,7 +104,7 @@ class ClientesproveedorsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$clientesproveedor = clientesproveedor::find($id);
+		$clientesproveedor = Clientesproveedor::find($id);
 		$title = "Editar clientesproveedor";
 
         return View::make('clientesproveedors.edit', array('title' => $title, 'clientesproveedor' => $clientesproveedor));
@@ -121,7 +121,7 @@ class ClientesproveedorsController extends BaseController {
 
 
 
-		$clientesproveedor = clientesproveedor::find($id);
+		$clientesproveedor = Clientesproveedor::find($id);
 
 		$rules = [
 			'clientesproveedor' => 'required|unique:clientesproveedors,clientesproveedor,' . $id,
@@ -129,9 +129,9 @@ class ClientesproveedorsController extends BaseController {
 		];
 
 
-		if (! clientesproveedor::isValid(Input::all(),$rules)) {
+		if (! Clientesproveedor::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(clientesproveedor::$errors);
+			return Redirect::back()->withInput()->withErrors(Clientesproveedor::$errors);
 
 		}
 
@@ -160,7 +160,7 @@ class ClientesproveedorsController extends BaseController {
 		$input = Input::all();		
 
 		
-		$clientesproveedor = clientesproveedor::find($id)->delete();
+		$clientesproveedor = Clientesproveedor::find($id)->delete();
 
 		return Redirect::to('/clientesproveedors');
 	}

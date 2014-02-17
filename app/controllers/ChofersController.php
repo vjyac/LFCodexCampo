@@ -45,13 +45,13 @@ class ChofersController extends BaseController {
 		];
 
 
-		if (! chofer::isValid(Input::all(),$rules)) {
+		if (! Chofer::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(chofer::$errors);
+			return Redirect::back()->withInput()->withErrors(Chofer::$errors);
 
 		}
 
-		$chofer = new chofer;
+		$chofer = new Chofer;
 
 		$chofer->chofer = Input::get('chofer');
 		$chofer->domicilio = Input::get('domicilio');
@@ -77,7 +77,7 @@ class ChofersController extends BaseController {
 	public function show($id)
 	{
 
-		$chofer = chofer::find($id);
+		$chofer = Chofer::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('chofers.show')
@@ -153,7 +153,7 @@ class ChofersController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$chofer = chofer::find($id)->delete();
+		$chofer = Chofer::find($id)->delete();
 
 		return Redirect::to('/chofers');
 	}

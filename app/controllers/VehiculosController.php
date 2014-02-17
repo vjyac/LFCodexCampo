@@ -56,13 +56,13 @@ class VehiculosController extends BaseController {
 
 
 
-		if (! vehiculo::isValid(Input::all(),$rules)) {
+		if (! Vehiculo::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(vehiculo::$errors);
+			return Redirect::back()->withInput()->withErrors(Vehiculo::$errors);
 
 		}
 
-		$vehiculo = new vehiculo;
+		$vehiculo = new Vehiculo;
 
 		$vehiculo->patente = Input::get('patente');
 		$vehiculo->descripcion = Input::get('descripcion');
@@ -86,7 +86,7 @@ class VehiculosController extends BaseController {
 	public function show($id)
 	{
 
-		$vehiculo = vehiculo::find($id);
+		$vehiculo = Vehiculo::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('vehiculos.show')
@@ -102,7 +102,7 @@ class VehiculosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$vehiculo = vehiculo::find($id);
+		$vehiculo = Vehiculo::find($id);
 		$title = "Editar vehiculo";
 
         return View::make('vehiculos.edit', array('title' => $title, 'vehiculo' => $vehiculo));
@@ -123,7 +123,7 @@ class VehiculosController extends BaseController {
 		// die;
 
 
-		$vehiculo = vehiculo::find($id);
+		$vehiculo = Vehiculo::find($id);
 
 
 
@@ -135,9 +135,9 @@ class VehiculosController extends BaseController {
 		];
 
 
-		if (! vehiculo::isValid(Input::all(),$rules)) {
+		if (! Vehiculo::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(vehiculo::$errors);
+			return Redirect::back()->withInput()->withErrors(Vehiculo::$errors);
 
 		}
 
@@ -165,7 +165,7 @@ class VehiculosController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$vehiculo = vehiculo::find($id)->delete();
+		$vehiculo = Vehiculo::find($id)->delete();
 
 		return Redirect::to('/vehiculos');
 	}

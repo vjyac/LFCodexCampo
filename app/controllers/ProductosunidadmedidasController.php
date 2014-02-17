@@ -46,14 +46,14 @@ class ProductosunidadmedidasController extends BaseController {
 		];
 
 
-		if (! productosunidadmedida::isValid(Input::all(),$rules)) {
+		if (! Productosunidadmedida::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(productosunidadmedida::$errors);
+			return Redirect::back()->withInput()->withErrors(Productosunidadmedida::$errors);
 
 		}
 
 
-		$productosunidadmedida = new productosunidadmedida;
+		$productosunidadmedida = new Productosunidadmedida;
 		$productosunidadmedida->productosunidadmedida = Input::get('productosunidadmedida');
 		
 		$productosunidadmedida->save();
@@ -71,7 +71,7 @@ class ProductosunidadmedidasController extends BaseController {
 	public function show($id)
 	{
 
-		$productosunidadmedida = productosunidadmedida::find($id);
+		$productosunidadmedida = Productosunidadmedida::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('productosunidadmedidas.show')
@@ -86,7 +86,7 @@ class ProductosunidadmedidasController extends BaseController {
 
 	public function edit($id)
 	{
-		$productosunidadmedida = productosunidadmedida::find($id);
+		$productosunidadmedida = Productosunidadmedida::find($id);
 		$title = "Editar Productos unidad medidas";
 
         return View::make('productosunidadmedidas.edit', array('title' => $title, 'productosunidadmedida' => $productosunidadmedida));
@@ -100,7 +100,7 @@ class ProductosunidadmedidasController extends BaseController {
 	public function update($id) {
 
 
-		$productosunidadmedida = productosunidadmedida::find($id);
+		$productosunidadmedida = Productosunidadmedida::find($id);
 
 
 		$rules = [
@@ -110,9 +110,9 @@ class ProductosunidadmedidasController extends BaseController {
 
 
 
-		if (! productosunidadmedida::isValid(Input::all(),$rules)) {
+		if (! Productosunidadmedida::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(productosunidadmedida::$errors);
+			return Redirect::back()->withInput()->withErrors(Productosunidadmedida::$errors);
 
 		}
 
@@ -135,7 +135,7 @@ class ProductosunidadmedidasController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$productosunidadmedida = productosunidadmedida::find($id)->delete();
+		$productosunidadmedida = Productosunidadmedida::find($id)->delete();
 
 		return Redirect::to('/productosunidadmedidas');
 	}

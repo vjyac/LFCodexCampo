@@ -45,13 +45,13 @@ class ProductosController extends BaseController {
 		];
 
 
-		if (! producto::isValid(Input::all(),$rules)) {
+		if (! Producto::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(producto::$errors);
+			return Redirect::back()->withInput()->withErrors(Producto::$errors);
 
 		}
 
-		$producto = new producto;
+		$producto = new Producto;
 
 		$producto->producto = Input::get('producto');
 		$producto->producto_codigo = Input::get('producto_codigo');
@@ -76,7 +76,7 @@ class ProductosController extends BaseController {
 	public function show($id)
 	{
 
-		$producto = producto::find($id);
+		$producto = Producto::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('productos.show')
@@ -91,7 +91,7 @@ class ProductosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$producto = producto::find($id);
+		$producto = Producto::find($id);
 		$title = "Editar producto";
 
         return View::make('productos.edit', array('title' => $title, 'producto' => $producto));
@@ -113,7 +113,7 @@ class ProductosController extends BaseController {
 		// die;
 
 
-		$producto = producto::find($id);
+		$producto = Producto::find($id);
 
 
 
@@ -124,9 +124,9 @@ class ProductosController extends BaseController {
 		];
 
 
-		if (! producto::isValid(Input::all(),$rules)) {
+		if (! Producto::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(producto::$errors);
+			return Redirect::back()->withInput()->withErrors(Producto::$errors);
 
 		}
 
@@ -156,7 +156,7 @@ class ProductosController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$producto = producto::find($id)->delete();
+		$producto = Producto::find($id)->delete();
 
 		return Redirect::to('/productos');
 	}

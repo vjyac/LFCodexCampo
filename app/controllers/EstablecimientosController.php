@@ -45,13 +45,13 @@ class EstablecimientosController extends BaseController {
 		];
 
 
-		if (! establecimiento::isValid(Input::all(),$rules)) {
+		if (! Establecimiento::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(establecimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Establecimiento::$errors);
 
 		}
 
-		$establecimiento = new establecimiento;
+		$establecimiento = new Establecimiento;
 
 		$establecimiento->establecimiento = Input::get('establecimiento');
 		$establecimiento->clientesproveedors_id = Input::get('clientesproveedors_id');
@@ -72,7 +72,7 @@ class EstablecimientosController extends BaseController {
 	public function show($id)
 	{
 
-		$establecimiento = establecimiento::find($id);
+		$establecimiento = Establecimiento::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('establecimientos.show')
@@ -88,7 +88,7 @@ class EstablecimientosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$establecimiento = establecimiento::find($id);
+		$establecimiento = Establecimiento::find($id);
 		$title = "Editar establecimiento";
 
         return View::make('establecimientos.edit', array('title' => $title, 'establecimiento' => $establecimiento));
@@ -104,7 +104,7 @@ class EstablecimientosController extends BaseController {
 	{
 
 
-		$establecimiento = establecimiento::find($id);
+		$establecimiento = Establecimiento::find($id);
 
 
 
@@ -116,9 +116,9 @@ class EstablecimientosController extends BaseController {
 		];
 
 
-		if (! establecimiento::isValid(Input::all(),$rules)) {
+		if (! Establecimiento::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(establecimiento::$errors);
+			return Redirect::back()->withInput()->withErrors(Establecimiento::$errors);
 
 		}
 
@@ -142,7 +142,7 @@ class EstablecimientosController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$establecimiento = establecimiento::find($id)->delete();
+		$establecimiento = Establecimiento::find($id)->delete();
 
 		return Redirect::to('/establecimientos');
 	}

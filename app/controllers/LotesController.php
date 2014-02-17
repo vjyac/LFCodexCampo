@@ -44,13 +44,13 @@ class LotesController extends BaseController {
 		];
 
 
-		if (! lote::isValid(Input::all(),$rules)) {
+		if (! Lote::isValid(Input::all(),$rules)) {
 
-			return Redirect::back()->withInput()->withErrors(lote::$errors);
+			return Redirect::back()->withInput()->withErrors(Lote::$errors);
 
 		}
 
-		$lote = new lote;
+		$lote = new Lote;
 
 		$lote->lote = Input::get('lote');
 		$lote->establecimientos_id = Input::get('establecimientos_id');
@@ -72,7 +72,7 @@ class LotesController extends BaseController {
 	public function show($id)
 	{
 
-		$lote = lote::find($id);
+		$lote = Lote::find($id);
 
 		// show the view and pass the nerd to it
 		return View::make('lotes.show')
@@ -88,7 +88,7 @@ class LotesController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$lote = lote::find($id);
+		$lote = Lote::find($id);
 		$title = "Editar lote";
 
         return View::make('lotes.edit', array('title' => $title, 'lote' => $lote));
@@ -104,7 +104,7 @@ class LotesController extends BaseController {
 	{
 
 
-		$lote = lote::find($id);
+		$lote = Lote::find($id);
 
 
 
@@ -114,9 +114,9 @@ class LotesController extends BaseController {
 
 		];
 
-		if (! lote::isValid(Input::all(),$rules)) {
+		if (! Lote::isValid(Input::all(),$rules)) {
 			
-			return Redirect::back()->withInput()->withErrors(lote::$errors);
+			return Redirect::back()->withInput()->withErrors(Lote::$errors);
 
 		}
 
@@ -142,7 +142,7 @@ class LotesController extends BaseController {
 	{
 		$input = Input::all();
 		
-		$lote = lote::find($id)->delete();
+		$lote = Lote::find($id)->delete();
 
 		return Redirect::to('/lotes');
 	}
