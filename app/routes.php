@@ -130,11 +130,11 @@ Route::get( '/documentostipos/search', array(
 Route::resource('documentostipos', 'DocumentostiposController');
 
 
-// movimientos
-Route::get( '/movimientos/search', array(
-    'as' => 'movimientos.search',
-    'uses' => 'MovimientosController@search'
-) );
+
+
+
+
+
 
 // repote producto por contratista
 Route::get('/movimientos/reportes/productoporcontratista', 'MovimientosController@showproductoporcontratista');
@@ -142,12 +142,6 @@ Route::post( '/movimientos/reporteproductoporcontratista', array(
     'as' => 'movimientos.reporteproductoporcontratista',
     'uses' => 'MovimientosController@reporteproductoporcontratista'
 ) );
-
-
-
-
-
-
 
 // repote flete por proveedor
 Route::get('/movimientos/reportes/fleteporproveedor', 'MovimientosController@showfleteporproveedor');
@@ -183,6 +177,8 @@ Route::get( '/vehiculos/search', array(
 Route::resource('vehiculos', 'VehiculosController');
 
 
+Route::resource('movimientosganaderias', 'MovimientosganaderiasController');
 
+Route::resource('movimientosganaderiascuerpos', 'MovimientosganaderiascuerposController');
 
-
+Route::get('movimientosganaderiascuerpos/{id}/borrar', 'MovimientosganaderiascuerposController@borrar');

@@ -2,7 +2,7 @@
 <html lang="en" class="app">
 <head>
   <meta charset="utf-8" />
-  <title>Codex | Web Application</title>
+  <title>Codex | Campo</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="/css/app.v2.css" type="text/css" />
@@ -220,44 +220,36 @@
               </li>
 
               <li >
-
-
-
-
-<a href="#table" >
-                <i class="fa fa-angle-down text"></i>
-                <i class="fa fa-angle-up text-active"></i>
-                <span>Reportes</span>
-              </a>
-              <ul class="nav bg">
-                <li >
-                  <a href="/movimientos/reportes/productoporcontratista" >
-                    <i class="fa fa-angle-right"></i>
-                    <span>Producto por contratista</span>
+                  <a href="#table" >
+                    <i class="fa fa-angle-down text"></i>
+                    <i class="fa fa-angle-up text-active"></i>
+                    <span>Reportes</span>
                   </a>
-                </li>                
-                <li >
-                  <a href="/movimientos/reportes/fleteporproveedor" >
-                    <i class="fa fa-angle-right"></i>
-                    <span>Flete por proveedor</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="/movimientos/reportes/productoporcliente" >
-                    <i class="fa fa-angle-right"></i>
-                    <span>Productos por clientes</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="/movimientos/reportes/productopororigen" >
-                    <i class="fa fa-angle-right"></i>
-                    <span>Productos por origen</span>
-                  </a>
-                </li>
-
-
-                      
-
+                  <ul class="nav bg">
+                    <li >
+                      <a href="/movimientos/reportes/productoporcontratista" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Producto por contratista</span>
+                      </a>
+                    </li>                
+                    <li >
+                      <a href="/movimientos/reportes/fleteporproveedor" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Flete por proveedor</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="/movimientos/reportes/productoporcliente" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Productos por clientes</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="/movimientos/reportes/productopororigen" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Productos por origen</span>
+                      </a>
+                    </li>
               </li>
 
 
@@ -266,6 +258,67 @@
         </ul>
       </nav>
 
+
+
+
+      <nav class="nav-primary hidden-xs">
+        <ul class="nav">
+
+          <li >
+            <a href="#uikit" >
+              <i class="fa fa-table icon"><b class="bg-success"></b></i> 
+              <span class="pull-right">
+                <i class="fa fa-angle-down text"></i>
+                <i class="fa fa-angle-up text-active"></i>
+              </span>
+              <span>Ganaderia</span>
+            </a>
+            <ul class="nav bg">
+              <li >
+                <a href="/movimientosganaderias" >
+                  <i class="fa fa-angle-right"></i>
+                    <span>Movimientos</span>
+                </a>
+              </li>
+
+              <li >
+                  <a href="#table" >
+                    <i class="fa fa-angle-down text"></i>
+                    <i class="fa fa-angle-up text-active"></i>
+                    <span>Reportes</span>
+                  </a>
+                  <ul class="nav bg">
+                    <li >
+                      <a href="/movimientos/reportes/productoporcontratista" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Producto por contratista</span>
+                      </a>
+                    </li>                
+                    <li >
+                      <a href="/movimientos/reportes/fleteporproveedor" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Flete por proveedor</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="/movimientos/reportes/productoporcliente" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Productos por clientes</span>
+                      </a>
+                    </li>
+                    <li >
+                      <a href="/movimientos/reportes/productopororigen" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Productos por origen</span>
+                      </a>
+                    </li>
+              </li>
+
+
+            </ul>
+          </li>
+        </ul>
+      </nav>
 
 
 
