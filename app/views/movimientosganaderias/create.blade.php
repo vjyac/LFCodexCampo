@@ -34,12 +34,23 @@
 
 		<div class="form-group">
 			<label>Tipo de movimiento</label>
-				{{ Form::select( 'tipo_movimiento', array ('ingreso' => 'ingreso', 'egreso' => 'egreso') ,'ingreso' , array( "placeholder" => "", 'class' => 'form-control input-lg')) }}
+				{{ Form::select( 'tipo_movimiento', array ('ingreso' => 'ingreso', 'egreso' => 'egreso', 'interno' => 'interno') ,'ingreso' , array( "placeholder" => "", 'class' => 'form-control input-lg')) }}
 		</div>
 
 		<?php if ($errors->first('tipo_movimiento')) { ?>
 			<span class="badge bg-danger">{{ $errors->first('tipo_movimiento') }}</span>
 		<?php } ?>
+
+		<div class="form-group">
+			<label>Motivo</label>
+			{{ Form::text('movimientomotivo', '', array('class' => 'form-control input-lg', 'id' =>'movimientomotivo', 'placeholder' => 'Ingrese motivo')) }}
+			{{ Form::hidden('movimientomotivos_id' , Input::old('movimientomotivos_id'), array('id' =>'movimientomotivos_id')) }}	 
+		</div>	 
+
+		<?php if ($errors->first('movimientomotivos_id')) { ?>
+			<span class="badge bg-danger">{{ $errors->first('movimientomotivos_id') }}</span>
+		<?php } ?>
+
 
 
 		<div class="form-group">
@@ -196,6 +207,13 @@ var jq = jQuery.noConflict();
 		source: "/documentostipos/search",
       	select: function( event, ui ) {
       		$( '#documentostipos_id' ).val( ui.item.id );
+      }
+  });
+
+    $("#movimientomotivo").autocomplete({
+		source: "/movimientomotivos/search",
+      	select: function( event, ui ) {
+      		$( '#movimientomotivos_id' ).val( ui.item.id );
       }
   });
 

@@ -288,12 +288,11 @@ var jq = jQuery.noConflict();
 
 
     $("#producto").autocomplete({
-		source: "/productos/search",
+		source: "/productos/search_forestacion",
       	select: function( event, ui ) {
       		$( '#productos_id' ).val( ui.item.id );
       }
   });
-
 
 
 

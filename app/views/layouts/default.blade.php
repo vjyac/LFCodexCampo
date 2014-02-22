@@ -289,29 +289,32 @@
                   </a>
                   <ul class="nav bg">
                     <li >
-                      <a href="/movimientos/reportes/productoporcontratista" >
+                      <a href="/movimientosganaderias/reportes/caravanas" >
                         <i class="fa fa-angle-right"></i>
-                        <span>Producto por contratista</span>
+                        <span>Caravanas</span>
                       </a>
                     </li>                
                     <li >
-                      <a href="/movimientos/reportes/fleteporproveedor" >
+                      <a href="/movimientosganaderias/reportes/fleteporproveedor" >
                         <i class="fa fa-angle-right"></i>
-                        <span>Flete por proveedor</span>
+                        <span>Fletes por proveedor</span>
+                      </a>
+                    </li>                
+                    <li >
+                      <a href="/movimientosganaderias/reportes/ingresos" >
+                        <i class="fa fa-angle-right"></i>
+                        <span>Ingresos</span>
                       </a>
                     </li>
                     <li >
-                      <a href="/movimientos/reportes/productoporcliente" >
+                      <a href="/movimientosganaderias/reportes/egresos" >
                         <i class="fa fa-angle-right"></i>
-                        <span>Productos por clientes</span>
+                        <span>Egresos</span>
                       </a>
                     </li>
-                    <li >
-                      <a href="/movimientos/reportes/productopororigen" >
-                        <i class="fa fa-angle-right"></i>
-                        <span>Productos por origen</span>
-                      </a>
-                    </li>
+
+
+
               </li>
 
 

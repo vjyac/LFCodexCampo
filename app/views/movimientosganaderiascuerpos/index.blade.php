@@ -5,6 +5,7 @@
 	
 	<?php
 
+		$movimientosganaderia = Movimientosganaderia::find($id);
 		$movimientosganaderiascuerpos = DB::table('movimientosganaderiascuerpos')->where('movimientosganaderias_id', "=",$id)->get();
 		
 
@@ -56,7 +57,12 @@
 
 
 			        echo "<td>";
-					echo "<a href='/movimientosganaderiascuerpos/" . $movimientosganaderiascuerpo->id . "/borrar' class='btn btn-xs btn-success'>Borrar</a> ";
+			        if ($movimientosganaderia->estado == 'abierto') {
+			        	echo "<a href='/movimientosganaderiascuerpos/" . $movimientosganaderiascuerpo->id . "/borrar' class='btn btn-xs btn-success'>Borrar</a> ";	
+			        } else {
+			        	echo "ya procesado";
+			        }
+					
 			        echo "</td>";
 
 			    echo "</tr>";

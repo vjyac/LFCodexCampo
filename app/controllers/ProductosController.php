@@ -162,15 +162,10 @@ class ProductosController extends BaseController {
 	}
 
    public function search(){
-
         $term = Input::get('term');
-
         $productos = DB::table('productos')->where('producto', 'like', '%' . $term . '%')->get();
-
         $adevol = array();
-
         if (count($productos) > 0) {
-
             foreach ($productos as $producto)
                 {
                     $adevol[] = array(
@@ -184,11 +179,61 @@ class ProductosController extends BaseController {
                         'value' => 'no hay coincidencias para ' .  $term
                     );            
         }
-
         return json_encode($adevol);
-
-
     }
-   
+
+
+
+   public function search_forestacion(){
+        $term = Input::get('term');
+        $productos = DB::table('productos')
+        					->where('producto', 'like', '%' . $term . '%')
+        					->where('actividads_id', '=', '2')
+        					->get();
+        $adevol = array();
+        if (count($productos) > 0) {
+            foreach ($productos as $producto)
+                {
+                    $adevol[] = array(
+                        'id' => $producto->id,
+                        'value' => $producto->producto,
+                    );
+            }
+        } else {
+                    $adevol[] = array(
+                        'id' => 0,
+                        'value' => 'no hay coincidencias para ' .  $term
+                    );            
+        }
+        return json_encode($adevol);
+    }
+
+
+   public function search_ganaderia(){
+        $term = Input::get('term');
+        $productos = DB::table('productos')
+        					->where('producto', 'like', '%' . $term . '%')
+        					->where('actividads_id', '=', '1')
+        					->get();
+        $adevol = array();
+        if (count($productos) > 0) {
+            foreach ($productos as $producto)
+                {
+                    $adevol[] = array(
+                        'id' => $producto->id,
+                        'value' => $producto->producto,
+                    );
+            }
+        } else {
+                    $adevol[] = array(
+                        'id' => 0,
+                        'value' => 'no hay coincidencias para ' .  $term
+                    );            
+        }
+        return json_encode($adevol);
+    }
+
+
+
 
 }

@@ -27,6 +27,7 @@
 			
 			$origenlotes = Lote::find($movimientosganaderia->origenlotes_id);
 			$destinolotes = Lote::find($movimientosganaderia->destinolotes_id);
+			$movimientomotivo = Movimientomotivo::find($movimientosganaderia->movimientomotivos_id);
 			$grupo = Grupo::find($movimientosganaderia->grupos_id);
 			$documentostipo = Documentostipo::find($movimientosganaderia->documentostipos_id);
 			$chofer = Chofer::find($movimientosganaderia->chofers_id);
@@ -50,13 +51,25 @@
 			<span class="badge bg-danger">{{ $errors->first('fecha') }}</span>
 		<?php } ?>
 
+
 		<div class="form-group">
 			<label>Tipo de movimiento</label>
-				{{ Form::select( 'tipo_movimiento', array ('ingreso' => 'ingreso', 'egreso' => 'egreso') ,$movimientosganaderia->tipo_movimiento , array( "placeholder" => "", 'class' => 'form-control input-lg')) }}
+				{{ Form::select( 'tipo_movimiento', array ('ingreso' => 'ingreso', 'egreso' => 'egreso', 'interno' => 'interno') ,$movimientosganaderia->tipo_movimiento, array( "placeholder" => "", 'class' => 'form-control input-lg')) }}
 		</div>
 
 		<?php if ($errors->first('tipo_movimiento')) { ?>
 			<span class="badge bg-danger">{{ $errors->first('tipo_movimiento') }}</span>
+		<?php } ?>
+
+
+		<div class="form-group">
+			<label>Motivo</label>
+			{{ Form::text('movimientomotivo', $movimientomotivo->movimientomotivo, array('class' => 'form-control input-lg', 'id' =>'movimientomotivo', 'placeholder' => 'Ingrese motivo')) }}
+			{{ Form::hidden('movimientomotivos_id' , $movimientosganaderia->movimientomotivos_id, array('id' =>'movimientomotivos_id')) }}	 
+		</div>	 
+
+		<?php if ($errors->first('movimientomotivos_id')) { ?>
+			<span class="badge bg-danger">{{ $errors->first('movimientomotivos_id') }}</span>
 		<?php } ?>
 
 
@@ -213,6 +226,15 @@ var jq = jQuery.noConflict();
       		$( '#documentostipos_id' ).val( ui.item.id );
       }
   });
+
+
+    $("#movimientomotivo").autocomplete({
+		source: "/movimientomotivos/search",
+      	select: function( event, ui ) {
+      		$( '#movimientomotivos_id' ).val( ui.item.id );
+      }
+  });
+
 
     $("#origenlotes").autocomplete({
 		source: "/lotes/search",

@@ -29,8 +29,8 @@
 												<th>Lote Origen</th>
 												<th>Lote Destino</th>
 												<th>Grupo</th>
-												<th>Tipo Documento</th>
-												<th>Nº Documento</th>
+												<th>Documento</th>
+												<th>Estado</th>
 												<th>Accion</th>
 											</tr>
 										</thead>
@@ -52,8 +52,8 @@
 												        echo "<td>" . $origenlotes->lote  . "</td>";
 												        echo "<td>" . $destinolotes->lote  . "</td>";
 												        echo "<td>" . $grupo->grupo . "</td>";
-												        echo "<td>" . $documentostipo->documentostipo . "</td>";
-												        echo "<td>" . $movimientosganaderia->numero_documento . "</td>";
+												        echo "<td>" . $documentostipo->documentostipo . ": " . $movimientosganaderia->numero_documento . "</td>";
+												        echo "<td>" . $movimientosganaderia->estado . "</td>";
 												        echo "<td>" ;
 														
 														echo "<a href='/movimientosganaderias/" . $movimientosganaderia->id . "/edit' class='btn btn-xs btn-primary'>Editar</a> ";

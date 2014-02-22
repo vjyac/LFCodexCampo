@@ -102,6 +102,14 @@ Route::get( '/productos/search', array(
     'as' => 'productos.search',
     'uses' => 'ProductosController@search'
 ) );
+Route::get( '/productos/search_forestacion', array(
+    'as' => 'productos.search_forestacion',
+    'uses' => 'ProductosController@search_forestacion'
+) );
+Route::get( '/productos/search_ganaderia', array(
+    'as' => 'productos.search_ganaderia',
+    'uses' => 'ProductosController@search_ganaderia'
+) );
 Route::resource('productos', 'ProductosController');
 
 
@@ -176,9 +184,26 @@ Route::get( '/vehiculos/search', array(
 ) );
 Route::resource('vehiculos', 'VehiculosController');
 
+// repote flete por proveedor
+Route::get('/movimientosganaderias/reportes/fleteporproveedor', 'MovimientosganaderiasController@showfleteporproveedor');
+Route::post( '/movimientosganaderias/reportefleteporproveedor', array(
+    'as' => 'movimientosganaderias.reportefleteporproveedor',
+    'uses' => 'MovimientosganaderiasController@reportefleteporproveedor'
+) );
+// repote egresos
+Route::get('/movimientosganaderias/reportes/egresos', 'MovimientosganaderiasController@showegresos');
+Route::post( '/movimientosganaderias/reporteegresos', array(
+    'as' => 'movimientosganaderias.reporteegresos',
+    'uses' => 'MovimientosganaderiasController@reporteegresos'
+) );
 
+
+
+Route::get('movimientosganaderias/{id}/cerrar', 'MovimientosganaderiasController@cerrar');
 Route::resource('movimientosganaderias', 'MovimientosganaderiasController');
 
 Route::resource('movimientosganaderiascuerpos', 'MovimientosganaderiascuerposController');
 
 Route::get('movimientosganaderiascuerpos/{id}/borrar', 'MovimientosganaderiascuerposController@borrar');
+
+
