@@ -556,6 +556,270 @@ class MovimientosganaderiasController extends BaseController {
 
 
 
+	public function showingresos()
+	{
+
+		$title = "Reporte ingresos";
+        return View::make('movimientosganaderias.showingresos', array('title' => $title));
+
+	}
+
+
+
+
+	public function reporteingresos()
+	{
+
+
+
+		$rules = [
+			'fecha_desde' => 'required',
+			'fecha_hasta' => 'required',
+			'movimientomotivos_id' => 'required|exists:movimientomotivos,id',
+		];
+
+		if (! Movimientosganaderia::isValid(Input::all(),$rules)) {
+			return Redirect::back()->withInput()->withErrors(Movimientosganaderia::$errors);
+		}
+
+		$movimientomotivos_id= Input::get('movimientomotivos_id');
+		$proveedorcliente_id = Input::get('proveedorcliente_id',0);
+
+		if ($proveedorcliente_id > 0) {
+			$clientesproveedors = DB::table('clientesproveedors')
+							->where('id', '=', $proveedorcliente_id)
+							->get();
+		} else {
+			$clientesproveedors = Clientesproveedor::all();
+		}
+		
+
+		
+		$fecha_desde = date("Y-m-d", strtotime(Input::get('fecha_desde')));
+		$fecha_hasta = date("Y-m-d", strtotime(Input::get('fecha_hasta')));	
+
+
+		$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+		// set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('CodexControl.com');
+		$pdf->SetTitle('Reporte Ingresos');
+
+		// set default header data
+		// $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+		$pdf->SetHeaderData('', PDF_HEADER_LOGO_WIDTH, 'CodexCampo', 'by Codex S.R.L. - www.codexcontrol.com');
+
+		// set header and footer fonts
+		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// set margins
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		// set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// set some language-dependent strings (optional)
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+		    require_once(dirname(__FILE__).'/lang/eng.php');
+		    $pdf->setLanguageArray($l);
+		}
+
+		// ---------------------------------------------------------
+
+		// set font
+		$pdf->SetFont('dejavusans', '', 10); 
+
+		// add a page
+		$pdf->AddPage();
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		$html = "";
+
+		$html .= '<h1>Ganaderia ingresos por motivos</h1><br>';		
+		$html .= '<h4>desde: ' . $fecha_desde . ' hasta: ' . $fecha_hasta . '</h4>';
+
+
+		$total_peso_neto_general = 0;
+
+		foreach ($clientesproveedors as $clientesproveedor) {
+
+			$establecimientos = DB::table('establecimientos')
+			->where('clientesproveedors_id', '=', $clientesproveedor->id)
+			->get();
+
+
+
+			if (count($establecimientos)) {
+
+				foreach ($establecimientos as $establecimiento) {
+
+
+					$lotes = DB::table('lotes')
+						->where('establecimientos_id', '=', $establecimiento->id)
+						->get();
+
+
+					if (count($lotes)) {
+
+						foreach ($lotes as $lote) {
+
+
+							$movimientosganaderias = DB::table('movimientosganaderias')
+							->where('origenlotes_id', '=', $lote->id)
+							->where('tipo_movimiento', '=', 'ingreso')
+							->where('movimientomotivos_id', '=', $movimientomotivos_id)
+							->where('fecha', '>=', $fecha_desde)
+							->where('fecha', '<=', $fecha_hasta)
+							->orderBy('fecha')
+							->get();
+
+
+							if (count($movimientosganaderias)) {
+
+								$html .= '<h4>Cliente: ' . $clientesproveedor->clientesproveedor . '</h4>';
+
+								$total_peso_neto = 0;
+
+
+								$html .= "<table>";
+
+								$html .= "<tr>";
+						        $html .= "<td width=\"10%\">Fecha</td>";
+						        $html .= "<td width=\"15%\">Nro Doc</td>";
+						        $html .= "<td width=\"15%\">Caravana</td>";
+						        $html .= "<td width=\"15%\">Producto</td>";
+						        $html .= "<td width=\"10%\">Grupo</td>";
+						        $html .= "<td width=\"10%\">Kilos</td>";
+						        $html .= "<td width=\"25%\">Observaciones</td>";
+
+								$html .= "</tr>";
+
+								foreach ($movimientosganaderias as $movimientosganaderia)
+
+									{
+
+
+										$movimientosganaderiascuerpos = DB::table('movimientosganaderiascuerpos')
+										->where('movimientosganaderias_id', '=', $movimientosganaderia->id)
+										->get();
+
+										if (count($movimientosganaderiascuerpos)) {
+
+
+											foreach ($movimientosganaderiascuerpos as $movimientosganaderiascuerpo)
+
+												{
+
+													$documentostipo = Documentostipo::find($movimientosganaderia->documentostipos_id);
+													$producto = Producto::find($movimientosganaderiascuerpo->productos_id);
+													$grupo = Grupo::find($movimientosganaderia->grupos_id);
+
+													$html .= "<tr>";
+													$html .= "<td>" . $movimientosganaderia->fecha . "</td>";
+											        $html .= "<td>" . $documentostipo->documentostipo . ", " . $movimientosganaderia->numero_documento . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->caravana . "</td>";
+													$html .= "<td>" . $producto->producto . "</td>";
+													$html .= "<td>" . $grupo->grupo . "</td>";
+
+											        $html .= "<td align=\"right\"> " . number_format($movimientosganaderiascuerpo->kilos,2) . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->observaciones . "</td>";
+													$html .= "</tr>";
+
+													$total_peso_neto += $movimientosganaderiascuerpo->kilos;
+
+												}
+
+											}
+
+										}
+
+										$html .= "<tr>";
+										$html .= "<td></td>";
+										$html .= "</tr>";
+
+										$html .= "</table>";			
+										$html .= "<br><br>";
+										$html .= "Subtotal: " . number_format($total_peso_neto,2);
+										$html .= "<br>";
+
+										$total_peso_neto_general += $total_peso_neto;
+									}
+
+								}
+							}
+						}
+					}
+				}
+
+
+
+
+			$html .= "<br><br>";
+			$html .= "Total General: " . number_format($total_peso_neto_general,2);
+			$html .= "<br>";
+
+			// $html .= "<h3>TOTAL: " . number_format($total_peso_neto,2) . "</h3>";
+
+
+
+
+			// output the HTML content
+			$pdf->writeHTML($html, true, false, true, false, '');
+
+			// reset pointer to the last page
+			$pdf->lastPage();
+
+			//Close and output PDF document
+			$pdf->Output('reporte_producto_por_proveedor.pdf', 'I');
+
+
+
+
+
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public function showegresos()
 	{
 
@@ -586,12 +850,15 @@ class MovimientosganaderiasController extends BaseController {
 		$proveedorcliente_id = Input::get('proveedorcliente_id',0);
 
 		if ($proveedorcliente_id > 0) {
-			$clientesproveedors = Clientesproveedor::find($proveedorcliente_id);
+			$clientesproveedors = DB::table('clientesproveedors')
+							->where('id', '=', $proveedorcliente_id)
+							->get();
 		} else {
 			$clientesproveedors = Clientesproveedor::all();
 		}
 		
 
+		
 		$fecha_desde = date("Y-m-d", strtotime(Input::get('fecha_desde')));
 		$fecha_hasta = date("Y-m-d", strtotime(Input::get('fecha_hasta')));	
 
@@ -652,95 +919,367 @@ class MovimientosganaderiasController extends BaseController {
 
 		foreach ($clientesproveedors as $clientesproveedor) {
 
-				$html .= '<h4>Cliente: ' . $clientesproveedor->clientesproveedor . '</h4>';
-
-				$total_peso_neto = 0;
-
-
-
-				$movimientosganaderias = DB::table('movimientosganaderias')
-				->where('destinolotes_id', '=', $clientesproveedor->id)
-				->where('tipo_movimiento', '=', 'egreso')
-				->where('movimientomotivos_id', '=', $movimientomotivos_id)
-				->where('fecha', '>=', $fecha_desde)
-				->where('fecha', '<=', $fecha_hasta);
-				$movimientosganaderias = $movimientosganaderias->orderBy('fecha');
-				$movimientosganaderias = $movimientosganaderias->get();
+			$establecimientos = DB::table('establecimientos')
+			->where('clientesproveedors_id', '=', $clientesproveedor->id)
+			->get();
 
 
-				if (count($movimientosganaderias)) {
+
+			if (count($establecimientos)) {
+
+				foreach ($establecimientos as $establecimiento) {
 
 
-					$html .= "<table>";
-
-					$html .= "<tr>";
-				        $html .= "<td width=\"10%\">Fecha</td>";
-				        $html .= "<td width=\"15%\">Nro Doc</td>";
-				        $html .= "<td width=\"15%\">Caravana</td>";
-				        $html .= "<td width=\"15%\">Producto</td>";
-				        $html .= "<td width=\"10%\">Grupo</td>";
-				        $html .= "<td width=\"10%\">Kilos</td>";
-				        $html .= "<td width=\"25%\">Observaciones</td>";
-
-					$html .= "</tr>";
-
-
-					foreach ($movimientosganaderias as $movimientosganaderia)
-
-						{
-
-
-						$movimientosganaderiascuerpos = DB::table('movimientosganaderiascuerpos')
-						->where('movimientosganaderias_id', '=', $movimientosganaderia->id)
+					$lotes = DB::table('lotes')
+						->where('establecimientos_id', '=', $establecimiento->id)
 						->get();
 
-						if (count($movimientosganaderiascuerpos)) {
+
+					if (count($lotes)) {
+
+						foreach ($lotes as $lote) {
 
 
-							foreach ($movimientosganaderiascuerpos as $movimientosganaderiascuerpo)
+							$movimientosganaderias = DB::table('movimientosganaderias')
+							->where('destinolotes_id', '=', $lote->id)
+							->where('tipo_movimiento', '=', 'egreso')
+							->where('movimientomotivos_id', '=', $movimientomotivos_id)
+							->where('fecha', '>=', $fecha_desde)
+							->where('fecha', '<=', $fecha_hasta)
+							->orderBy('fecha')
+							->get();
 
-								{
 
-									$documentostipo = Documentostipo::find($movimientosganaderia->documentostipos_id);
-									$producto = Producto::find($movimientosganaderiascuerpo->productos_id);
-									$grupo = Grupo::find($movimientosganaderia->grupos_id);
+							if (count($movimientosganaderias)) {
 
-									$html .= "<tr>";
-									$html .= "<td>" . $movimientosganaderia->fecha . "</td>";
-							        $html .= "<td>" . $documentostipo->documentostipo . ", " . $movimientosganaderia->numero_documento . "</td>";
-									$html .= "<td>" . $movimientosganaderiascuerpo->caravana . "</td>";
-									$html .= "<td>" . $producto->producto . "</td>";
-									$html .= "<td>" . $grupo->grupo . "</td>";
+								$html .= '<h4>Cliente: ' . $clientesproveedor->clientesproveedor . '</h4>';
 
-							        $html .= "<td align=\"right\"> " . number_format($movimientosganaderiascuerpo->kilos,2) . "</td>";
-									$html .= "<td>" . $movimientosganaderiascuerpo->observaciones . "</td>";
-									$html .= "</tr>";
+								$total_peso_neto = 0;
 
-									$total_peso_neto += $movimientosganaderiascuerpo->kilos;
+
+								$html .= "<table>";
+
+								$html .= "<tr>";
+						        $html .= "<td width=\"10%\">Fecha</td>";
+						        $html .= "<td width=\"15%\">Nro Doc</td>";
+						        $html .= "<td width=\"15%\">Caravana</td>";
+						        $html .= "<td width=\"15%\">Producto</td>";
+						        $html .= "<td width=\"10%\">Grupo</td>";
+						        $html .= "<td width=\"10%\">Kilos</td>";
+						        $html .= "<td width=\"25%\">Observaciones</td>";
+
+								$html .= "</tr>";
+
+								foreach ($movimientosganaderias as $movimientosganaderia)
+
+									{
+
+
+										$movimientosganaderiascuerpos = DB::table('movimientosganaderiascuerpos')
+										->where('movimientosganaderias_id', '=', $movimientosganaderia->id)
+										->get();
+
+										if (count($movimientosganaderiascuerpos)) {
+
+
+											foreach ($movimientosganaderiascuerpos as $movimientosganaderiascuerpo)
+
+												{
+
+													$documentostipo = Documentostipo::find($movimientosganaderia->documentostipos_id);
+													$producto = Producto::find($movimientosganaderiascuerpo->productos_id);
+													$grupo = Grupo::find($movimientosganaderia->grupos_id);
+
+													$html .= "<tr>";
+													$html .= "<td>" . $movimientosganaderia->fecha . "</td>";
+											        $html .= "<td>" . $documentostipo->documentostipo . ", " . $movimientosganaderia->numero_documento . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->caravana . "</td>";
+													$html .= "<td>" . $producto->producto . "</td>";
+													$html .= "<td>" . $grupo->grupo . "</td>";
+
+											        $html .= "<td align=\"right\"> " . number_format($movimientosganaderiascuerpo->kilos,2) . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->observaciones . "</td>";
+													$html .= "</tr>";
+
+													$total_peso_neto += $movimientosganaderiascuerpo->kilos;
+
+												}
+
+											}
+
+										}
+
+										$html .= "<tr>";
+										$html .= "<td></td>";
+										$html .= "</tr>";
+
+										$html .= "</table>";			
+										$html .= "<br><br>";
+										$html .= "Subtotal: " . number_format($total_peso_neto,2);
+										$html .= "<br>";
+
+										$total_peso_neto_general += $total_peso_neto;
+									}
 
 								}
-
 							}
-
 						}
-
-					$html .= "<tr>";
-					$html .= "<td></td>";
-					$html .= "</tr>";
-
-					$html .= "</table>";			
-					$html .= "<br><br>";
-					$html .= "Subtotal: " . $total_peso_neto;
-					$html .= "<br>";
-
-					$total_peso_neto_general += $total_peso_neto;
-
+					}
 				}
 
-			}
+
+
 
 			$html .= "<br><br>";
-			$html .= "Subtotal: " . $total_peso_neto_general;
+			$html .= "Total General: " . number_format($total_peso_neto_general,2);
+			$html .= "<br>";
+
+			// $html .= "<h3>TOTAL: " . number_format($total_peso_neto,2) . "</h3>";
+
+
+
+
+			// output the HTML content
+			$pdf->writeHTML($html, true, false, true, false, '');
+
+			// reset pointer to the last page
+			$pdf->lastPage();
+
+			//Close and output PDF document
+			$pdf->Output('reporte_producto_por_proveedor.pdf', 'I');
+
+
+
+
+
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function showcaravanas()
+	{
+
+		$title = "Reporte caravanas";
+        return View::make('movimientosganaderias.showcaravanas', array('title' => $title));
+
+	}
+
+
+
+
+	public function reportecaravanas()
+	{
+
+
+
+		$rules = [
+			'fecha_desde' => 'required',
+			'fecha_hasta' => 'required',
+			'movimientomotivos_id' => 'required|exists:movimientomotivos,id',
+		];
+
+		if (! Movimientosganaderia::isValid(Input::all(),$rules)) {
+			return Redirect::back()->withInput()->withErrors(Movimientosganaderia::$errors);
+		}
+
+		$movimientomotivos_id= Input::get('movimientomotivos_id');
+		$proveedorcliente_id = Input::get('proveedorcliente_id',0);
+
+		if ($proveedorcliente_id > 0) {
+			$clientesproveedors = DB::table('clientesproveedors')
+							->where('id', '=', $proveedorcliente_id)
+							->get();
+		} else {
+			$clientesproveedors = Clientesproveedor::all();
+		}
+		
+
+		
+		$fecha_desde = date("Y-m-d", strtotime(Input::get('fecha_desde')));
+		$fecha_hasta = date("Y-m-d", strtotime(Input::get('fecha_hasta')));	
+
+
+		$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+		// set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('CodexControl.com');
+		$pdf->SetTitle('Fletes por Proveedor');
+
+		// set default header data
+		// $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+		$pdf->SetHeaderData('', PDF_HEADER_LOGO_WIDTH, 'CodexCampo', 'by Codex S.R.L. - www.codexcontrol.com');
+
+		// set header and footer fonts
+		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// set margins
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		// set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// set some language-dependent strings (optional)
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+		    require_once(dirname(__FILE__).'/lang/eng.php');
+		    $pdf->setLanguageArray($l);
+		}
+
+		// ---------------------------------------------------------
+
+		// set font
+		$pdf->SetFont('dejavusans', '', 10); 
+
+		// add a page
+		$pdf->AddPage();
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		$html = "";
+
+		$html .= '<h1>Ganaderia egresos por motivos</h1><br>';		
+		$html .= '<h4>desde: ' . $fecha_desde . ' hasta: ' . $fecha_hasta . '</h4>';
+
+
+		$total_peso_neto_general = 0;
+
+		foreach ($clientesproveedors as $clientesproveedor) {
+
+			$establecimientos = DB::table('establecimientos')
+			->where('clientesproveedors_id', '=', $clientesproveedor->id)
+			->get();
+
+
+
+			if (count($establecimientos)) {
+
+				foreach ($establecimientos as $establecimiento) {
+
+
+					$lotes = DB::table('lotes')
+						->where('establecimientos_id', '=', $establecimiento->id)
+						->get();
+
+
+					if (count($lotes)) {
+
+						foreach ($lotes as $lote) {
+
+
+							$movimientosganaderias = DB::table('movimientosganaderias')
+							->where('destinolotes_id', '=', $lote->id)
+							->where('tipo_movimiento', '=', 'egreso')
+							->where('movimientomotivos_id', '=', $movimientomotivos_id)
+							->where('fecha', '>=', $fecha_desde)
+							->where('fecha', '<=', $fecha_hasta)
+							->orderBy('fecha')
+							->get();
+
+
+							if (count($movimientosganaderias)) {
+
+								$html .= '<h4>Cliente: ' . $clientesproveedor->clientesproveedor . '</h4>';
+
+								$total_peso_neto = 0;
+
+
+								$html .= "<table>";
+
+								$html .= "<tr>";
+						        $html .= "<td width=\"10%\">Fecha</td>";
+						        $html .= "<td width=\"15%\">Nro Doc</td>";
+						        $html .= "<td width=\"15%\">Caravana</td>";
+						        $html .= "<td width=\"15%\">Producto</td>";
+						        $html .= "<td width=\"10%\">Grupo</td>";
+						        $html .= "<td width=\"10%\">Kilos</td>";
+						        $html .= "<td width=\"25%\">Observaciones</td>";
+
+								$html .= "</tr>";
+
+								foreach ($movimientosganaderias as $movimientosganaderia)
+
+									{
+
+
+										$movimientosganaderiascuerpos = DB::table('movimientosganaderiascuerpos')
+										->where('movimientosganaderias_id', '=', $movimientosganaderia->id)
+										->get();
+
+										if (count($movimientosganaderiascuerpos)) {
+
+
+											foreach ($movimientosganaderiascuerpos as $movimientosganaderiascuerpo)
+
+												{
+
+													$documentostipo = Documentostipo::find($movimientosganaderia->documentostipos_id);
+													$producto = Producto::find($movimientosganaderiascuerpo->productos_id);
+													$grupo = Grupo::find($movimientosganaderia->grupos_id);
+
+													$html .= "<tr>";
+													$html .= "<td>" . $movimientosganaderia->fecha . "</td>";
+											        $html .= "<td>" . $documentostipo->documentostipo . ", " . $movimientosganaderia->numero_documento . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->caravana . "</td>";
+													$html .= "<td>" . $producto->producto . "</td>";
+													$html .= "<td>" . $grupo->grupo . "</td>";
+
+											        $html .= "<td align=\"right\"> " . number_format($movimientosganaderiascuerpo->kilos,2) . "</td>";
+													$html .= "<td>" . $movimientosganaderiascuerpo->observaciones . "</td>";
+													$html .= "</tr>";
+
+													$total_peso_neto += $movimientosganaderiascuerpo->kilos;
+
+												}
+
+											}
+
+										}
+
+										$html .= "<tr>";
+										$html .= "<td></td>";
+										$html .= "</tr>";
+
+										$html .= "</table>";			
+										$html .= "<br><br>";
+										$html .= "Subtotal: " . number_format($total_peso_neto,2);
+										$html .= "<br>";
+
+										$total_peso_neto_general += $total_peso_neto;
+									}
+
+								}
+							}
+						}
+					}
+				}
+
+
+
+
+			$html .= "<br><br>";
+			$html .= "Total General: " . number_format($total_peso_neto_general,2);
 			$html .= "<br>";
 
 			// $html .= "<h3>TOTAL: " . number_format($total_peso_neto,2) . "</h3>";

@@ -59,6 +59,13 @@ Route::get( '/ciudads/search', array(
 Route::resource('ciudads', 'CiudadsController');
 
 
+// prueba especial para pasar otros parametros
+Route::get( '/establecimientos/searchs', array(
+    'as' => 'establecimientos.searchs',
+    'uses' => 'EstablecimientosController@searchs'
+) );
+
+
 // Ciudads
 Route::get( '/establecimientos/search', array(
     'as' => 'establecimientos.search',
@@ -184,11 +191,23 @@ Route::get( '/vehiculos/search', array(
 ) );
 Route::resource('vehiculos', 'VehiculosController');
 
+// repote flete por caravanas
+Route::get('/movimientosganaderias/reportes/caravanas', 'MovimientosganaderiasController@showcaravanas');
+Route::post( '/movimientosganaderias/reportecaravanas', array(
+    'as' => 'movimientosganaderias.reportecaravanas',
+    'uses' => 'MovimientosganaderiasController@reportecaravanas'
+) );
 // repote flete por proveedor
 Route::get('/movimientosganaderias/reportes/fleteporproveedor', 'MovimientosganaderiasController@showfleteporproveedor');
 Route::post( '/movimientosganaderias/reportefleteporproveedor', array(
     'as' => 'movimientosganaderias.reportefleteporproveedor',
     'uses' => 'MovimientosganaderiasController@reportefleteporproveedor'
+) );
+// repote ingresos
+Route::get('/movimientosganaderias/reportes/ingresos', 'MovimientosganaderiasController@showingresos');
+Route::post( '/movimientosganaderias/reporteingresos', array(
+    'as' => 'movimientosganaderias.reporteingresos',
+    'uses' => 'MovimientosganaderiasController@reporteingresos'
 ) );
 // repote egresos
 Route::get('/movimientosganaderias/reportes/egresos', 'MovimientosganaderiasController@showegresos');

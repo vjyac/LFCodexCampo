@@ -60,6 +60,8 @@
 
 														echo "<a href='/movimientosganaderias/" . $movimientosganaderia->id . "' class='btn btn-xs btn-success'>Ver</a> ";
 
+														echo "<a href='/movimientosganaderias/" . $movimientosganaderia->id . "/print' class='btn btn-xs btn-success'>Imprimir</a> ";
+
 														print "</td>";
 														print "</tr>";
 

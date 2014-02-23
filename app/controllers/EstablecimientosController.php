@@ -194,4 +194,50 @@ class EstablecimientosController extends BaseController {
 	}
 
 
+
+
+
+
+   public function searchs(){
+
+        $term = Input::get('term');
+        $id = Input::get('id');
+
+        $establecimientos = DB::table('establecimientos')
+        ->where('establecimiento', 'like', '%' . $term . '%')
+        ->where('clientesproveedors_id', '=', $id )
+        ->get();
+
+        $adevol = array();
+
+        if (count($establecimientos) > 0) {
+
+            foreach ($establecimientos as $establecimiento)
+                {
+                    $adevol[] = array(
+                        'id' => $establecimiento->id,
+                        'value' => $establecimiento->establecimiento,
+                    );
+            }
+        } else {
+                    $adevol[] = array(
+                        'id' => 0,
+                        'value' => 'no hay coincidencias para ' .  $term
+                    );            
+        }
+
+        return json_encode($adevol);
+
+
+    }
+   
+
+
+
+
+
+
+
+
+
 }

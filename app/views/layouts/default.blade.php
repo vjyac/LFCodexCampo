@@ -24,7 +24,7 @@
           <!-- <a href="/" class="navbar-brand" data-toggle="fullscreen"> -->
           <a href="/" class="navbar-brand">
             <img src="/images/logo.png" class="m-r-sm">
-            <span class="hidden-nav-xs">Codex S.R.L.</span>
+            <span class="hidden-nav-xs">Codex S.A.</span>
           </a>
           <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"> <i class="fa fa-cog"></i>
           </a>
