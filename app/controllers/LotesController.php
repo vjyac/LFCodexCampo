@@ -150,8 +150,14 @@ class LotesController extends BaseController {
    public function search(){
 
         $term = Input::get('term');
+        $id = Input::get('id',0);
 
-        $lotes = DB::table('lotes')->where('lote', 'like', '%' . $term . '%')->get();
+        $lotes = DB::table('lotes')->where('lote', 'like', '%' . $term . '%');
+        if ($id > 0 ) {
+        	$lotes = $lotes->where('establecimientos_id', '=', $id);	
+        }
+		
+        $lotes = $lotes->get();
 
         $adevol = array();
 

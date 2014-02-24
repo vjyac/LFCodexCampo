@@ -72,7 +72,7 @@
 	var jq = jQuery.noConflict();
     jq(document).ready( function(){
 
-            
+ 
     $("#clientesproveedor").autocomplete({
 		source: '/clientesproveedors/search',
       	select: function( event, ui ) {
@@ -89,6 +89,31 @@ $('#establecimiento').autocomplete({
           data: {
             term : request.term,
             id : $('#clientesproveedors_id').val()
+          },
+
+		success: function (data) {
+		                response($.map(data, function(v,i){
+		                	$( '#establecimientos_id' ).val( v.id );
+	                        return {
+	                                label: v.value,
+	                                value: v.value
+	                               };
+
+		                }));
+		            }
+        });
+      }
+  });
+
+
+$('#lote').autocomplete({
+      source: function(request, response) {
+        $.ajax({
+          url: "/lotes/search",
+               dataType: "json",
+          data: {
+            term : request.term,
+            id : $('#establecimientos_id').val()
           },
           success: function(data) {
             response(data);
