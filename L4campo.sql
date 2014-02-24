@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-02-2014 a las 12:25:00
+-- Tiempo de generación: 24-02-2014 a las 15:06:58
 -- Versión del servidor: 5.5.29
 -- Versión de PHP: 5.4.10
 
@@ -35,6 +35,36 @@ CREATE TABLE `actividads` (
 INSERT INTO `actividads` (`id`, `actividad`, `created_at`, `updated_at`) VALUES
 (1, 'Ganaderia', '2014-02-14 00:00:00', '2014-02-14 00:00:00'),
 (2, 'Forestacion', '2014-02-14 00:00:00', '2014-02-14 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `caravanas`
+--
+
+CREATE TABLE `caravanas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `caravana` varchar(45) DEFAULT NULL,
+  `estado` enum('viva','muerta','vendida') DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Volcado de datos para la tabla `caravanas`
+--
+
+INSERT INTO `caravanas` (`id`, `caravana`, `estado`, `created_at`, `updated_at`) VALUES
+(1, 'GH01', 'vendida', '2014-02-22 22:34:26', '2014-02-22 22:34:26'),
+(2, 'gn003', 'vendida', '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(3, 'GN365-123456', 'vendida', '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(4, 'GN365-124', 'vendida', '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(5, 'GN365A01', 'viva', '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(6, 'GN365A02', 'viva', '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(7, 'GN365A03', 'viva', '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(8, 'GN365A04', 'viva', '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(9, 'GN365A05', 'viva', '2014-02-23 12:34:35', '2014-02-23 12:34:35');
 
 -- --------------------------------------------------------
 
@@ -118,7 +148,7 @@ CREATE TABLE `clientesproveedors` (
 
 INSERT INTO `clientesproveedors` (`id`, `clientesproveedor`, `tipo`, `ciudads_id`, `direccion`, `telefono`, `email`, `estado`, `created_at`, `updated_at`) VALUES
 (1, 'Navar S.A.', 'cliente', 1, '', '481888', 'navar@navarsa.com', 'activo', '2014-02-14 21:40:45', '2014-02-14 21:40:45'),
-(2, 'Virocay S.C.A. ', 'proveedor', 1, '', '', '', 'activo', '2014-02-14 21:41:42', '2014-02-14 21:42:37'),
+(2, 'Virocay S.C.A. ', 'proveedor', 1, '', '', '', 'activo', '2014-02-14 21:41:42', '2014-02-22 21:18:30'),
 (3, 'Aires Mario', 'cliente', 1, 'Barrio Cesáreo Navajas', '', '', 'activo', '2014-02-14 22:39:39', '2014-02-14 22:39:39');
 
 -- --------------------------------------------------------
@@ -186,7 +216,7 @@ INSERT INTO `establecimientos` (`id`, `establecimiento`, `ciudads_id`, `clientes
 (1, 'Rincón Virasoro', 1, 1, '2014-02-14 21:47:24', '2014-02-14 21:47:40'),
 (2, 'Carvallo', 2, 1, '2014-02-14 21:48:05', '2014-02-14 21:48:05'),
 (3, 'La Gloria', 1, 1, '2014-02-14 21:48:40', '2014-02-14 21:48:40'),
-(4, 'Virocay', 1, 1, '2014-02-14 21:49:05', '2014-02-14 21:49:05');
+(4, 'Virocay', 1, 2, '2014-02-14 21:49:05', '2014-02-22 22:32:50');
 
 -- --------------------------------------------------------
 
@@ -317,7 +347,7 @@ CREATE TABLE `lotes` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_lotes_establecimientos1_idx` (`establecimientos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `lotes`
@@ -328,7 +358,8 @@ INSERT INTO `lotes` (`id`, `establecimientos_id`, `lote`, `superficie_m2`, `obse
 (2, 2, 'B', 0.00, '', '2014-02-14 21:51:37', '2014-02-14 21:51:37'),
 (3, 2, 'C', 0.00, '', '2014-02-14 21:53:45', '2014-02-14 21:53:45'),
 (4, 4, 'Virocay', 0.00, '', '2014-02-14 21:54:35', '2014-02-14 21:54:35'),
-(5, 3, 'G', 0.00, '', '2014-02-15 13:56:22', '2014-02-15 13:56:22');
+(5, 3, 'G', 0.00, '', '2014-02-15 13:56:22', '2014-02-15 13:56:22'),
+(6, 1, 'R', 0.00, '', '2014-02-23 15:09:21', '2014-02-23 15:09:21');
 
 -- --------------------------------------------------------
 
@@ -359,7 +390,7 @@ CREATE TABLE `movimientomotivos` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `movimientomotivos`
@@ -367,7 +398,8 @@ CREATE TABLE `movimientomotivos` (
 
 INSERT INTO `movimientomotivos` (`id`, `movimientomotivo`, `created_at`, `updated_at`) VALUES
 (1, 'Ventas', '2014-02-14 21:55:05', '2014-02-14 21:55:05'),
-(2, 'Compras', '2014-02-14 21:55:12', '2014-02-14 21:55:18');
+(2, 'Compras', '2014-02-14 21:55:12', '2014-02-14 21:55:18'),
+(3, 'Muerte', '2014-02-22 00:00:00', '2014-02-22 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -421,13 +453,49 @@ INSERT INTO `movimientos` (`id`, `fecha`, `tipo_movimiento`, `proveedorcliente_i
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `movimientoscaravanasgrupos`
+--
+
+CREATE TABLE `movimientoscaravanasgrupos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movimientosganaderias_id` int(11) NOT NULL,
+  `caravanas_id` int(11) NOT NULL,
+  `grupos_id` int(11) NOT NULL,
+  `kilos` decimal(10,3) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_movimientoscaravanasgrupos_caravanas1_idx` (`caravanas_id`),
+  KEY `fk_movimientoscaravanasgrupos_grupos1_idx` (`grupos_id`),
+  KEY `fk_movimientoscaravanasgrupos_movimientosganaderias1_idx` (`movimientosganaderias_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Volcado de datos para la tabla `movimientoscaravanasgrupos`
+--
+
+INSERT INTO `movimientoscaravanasgrupos` (`id`, `movimientosganaderias_id`, `caravanas_id`, `grupos_id`, `kilos`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 100.000, '2014-02-22 22:34:26', '2014-02-22 22:34:26'),
+(2, 2, 2, 2, 166.667, '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(3, 2, 3, 2, 166.667, '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(4, 2, 4, 2, 166.667, '2014-02-22 22:40:20', '2014-02-22 22:40:20'),
+(5, 3, 5, 2, 600.000, '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(6, 3, 6, 2, 600.000, '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(7, 3, 7, 2, 600.000, '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(8, 3, 8, 2, 600.000, '2014-02-23 12:34:35', '2014-02-23 12:34:35'),
+(9, 3, 9, 2, 600.000, '2014-02-23 12:34:35', '2014-02-23 12:34:35');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `movimientosganaderias`
 --
 
 CREATE TABLE `movimientosganaderias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
-  `tipo_movimiento` enum('ingreso','egreso') DEFAULT NULL,
+  `tipo_movimiento` enum('ingreso','egreso','interno') DEFAULT NULL,
+  `movimientomotivos_id` int(11) NOT NULL,
   `documentostipos_id` int(11) NOT NULL,
   `numero_documento` varchar(45) DEFAULT NULL,
   `origenlotes_id` int(11) DEFAULT NULL,
@@ -444,19 +512,18 @@ CREATE TABLE `movimientosganaderias` (
   `grupos_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_movimientosganaderias_documentostipos1_idx` (`documentostipos_id`),
-  KEY `fk_movimientosganaderias_grupos1_idx` (`grupos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  KEY `fk_movimientosganaderias_grupos1_idx` (`grupos_id`),
+  KEY `fk_movimientosganaderias_movimientomotivos1_idx` (`movimientomotivos_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `movimientosganaderias`
 --
 
-INSERT INTO `movimientosganaderias` (`id`, `fecha`, `tipo_movimiento`, `documentostipos_id`, `numero_documento`, `origenlotes_id`, `destinolotes_id`, `nro_cabezas`, `chofers_id`, `peso_bruto`, `peso_tara`, `peso_neto`, `vehiculos_id`, `estado`, `created_at`, `updated_at`, `grupos_id`) VALUES
-(4, '2014-02-18', 'ingreso', 2, '123123', 1, 4, 100, 1, 2000, 1000, 1000, 2, 'abierto', '2014-02-18 23:02:42', '2014-02-18 23:02:42', 1),
-(5, '2014-02-18', 'ingreso', 1, '00010000001', 4, 1, 10, 1, 25000, 2000, 23000, 1, 'abierto', '2014-02-18 23:34:37', '2014-02-18 23:34:37', 1),
-(6, '2014-02-18', 'ingreso', 1, '000010000002', 4, 1, 15, 1, 35000, 5000, 0, 1, 'abierto', '2014-02-18 23:52:19', '2014-02-18 23:52:19', 2),
-(7, '2014-02-18', 'ingreso', 1, '00001000003', 4, 1, 15, 1, 30000, 5000, 25000, 1, 'abierto', '2014-02-18 23:53:40', '2014-02-18 23:57:27', 2),
-(8, '2014-02-18', 'egreso', 1, '00001000004', 4, 1, 15, 1, 45000, 10000, 35000, 1, 'abierto', '2014-02-18 23:55:32', '2014-02-18 23:57:09', 2);
+INSERT INTO `movimientosganaderias` (`id`, `fecha`, `tipo_movimiento`, `movimientomotivos_id`, `documentostipos_id`, `numero_documento`, `origenlotes_id`, `destinolotes_id`, `nro_cabezas`, `chofers_id`, `peso_bruto`, `peso_tara`, `peso_neto`, `vehiculos_id`, `estado`, `created_at`, `updated_at`, `grupos_id`) VALUES
+(1, '2014-02-22', 'ingreso', 2, 1, '01', 1, 4, 1, 1, 1500, 1400, 100, 1, 'cerrado', '2014-02-22 22:34:04', '2014-02-22 23:43:44', 1),
+(2, '2014-02-22', 'ingreso', 2, 1, '02', 4, 1, 2, 1, 2000, 1500, 500, 1, 'cerrado', '2014-02-22 22:37:32', '2014-02-22 23:43:26', 2),
+(3, '2014-02-23', 'ingreso', 2, 1, '00000541', 1, 1, 5, 1, 15000, 12000, 3000, 1, 'cerrado', '2014-02-23 12:29:44', '2014-02-23 12:29:44', 2);
 
 -- --------------------------------------------------------
 
@@ -469,25 +536,29 @@ CREATE TABLE `movimientosganaderiascuerpos` (
   `movimientosganaderias_id` int(11) NOT NULL,
   `productos_id` int(11) NOT NULL,
   `caravana` varchar(45) DEFAULT NULL,
-  `kilos` decimal(10,2) DEFAULT NULL,
+  `kilos` decimal(10,3) DEFAULT NULL,
   `observaciones` text,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_movimientosforestacionscuerpos_movimientosforestacions1_idx` (`movimientosganaderias_id`),
   KEY `fk_movimientosforestacionscuerpos_productos1_idx` (`productos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `movimientosganaderiascuerpos`
 --
 
 INSERT INTO `movimientosganaderiascuerpos` (`id`, `movimientosganaderias_id`, `productos_id`, `caravana`, `kilos`, `observaciones`, `created_at`, `updated_at`) VALUES
-(6, 4, 2, '3423243243234', 400.00, '', '2014-02-18 23:03:25', '2014-02-18 23:03:25'),
-(7, 5, 5, 'GN365-123546', 0.00, '', '2014-02-18 23:39:36', '2014-02-18 23:39:36'),
-(8, 5, 5, 'GN365-12536', 0.00, 'Pata derecha abichada', '2014-02-18 23:40:22', '2014-02-18 23:40:22'),
-(9, 5, 6, 'GN365-12365', 0.00, '', '2014-02-18 23:40:39', '2014-02-18 23:40:39'),
-(10, 5, 6, 'GN365-122541', 0.00, '', '2014-02-18 23:40:56', '2014-02-18 23:40:56');
+(1, 1, 5, 'GH01', 100.000, 'bien', '2014-02-22 22:34:21', '2014-02-22 22:34:21'),
+(2, 2, 5, 'gn003', 166.667, '', '2014-02-22 22:39:59', '2014-02-22 22:39:59'),
+(3, 2, 5, 'GN365-123456', 166.667, '', '2014-02-22 22:40:08', '2014-02-22 22:40:08'),
+(4, 2, 5, 'GN365-124', 166.667, '', '2014-02-22 22:40:15', '2014-02-22 22:40:15'),
+(5, 3, 6, 'GN365A01', 600.000, '', '2014-02-23 12:33:15', '2014-02-23 12:33:15'),
+(6, 3, 5, 'GN365A02', 600.000, '', '2014-02-23 12:33:38', '2014-02-23 12:33:38'),
+(7, 3, 5, 'GN365A03', 600.000, '', '2014-02-23 12:33:56', '2014-02-23 12:33:56'),
+(8, 3, 5, 'GN365A04', 600.000, '', '2014-02-23 12:34:11', '2014-02-23 12:34:11'),
+(9, 3, 5, 'GN365A05', 600.000, '', '2014-02-23 12:34:30', '2014-02-23 12:34:30');
 
 -- --------------------------------------------------------
 
@@ -699,9 +770,9 @@ ALTER TABLE `historialgruposlotes`
 -- Filtros para la tabla `historiallabores`
 --
 ALTER TABLE `historiallabores`
-  ADD CONSTRAINT `fk_historial_labores_labores_tipos1` FOREIGN KEY (`labortipos_id`) REFERENCES `labores_tipos` (`id_labor_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_historial_labores_clientes_proveedores1` FOREIGN KEY (`clienteproveedors_id`) REFERENCES `clientesproveedors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_historial_labores_grupo1` FOREIGN KEY (`grupos_id`) REFERENCES `grupos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historial_labores_clientes_proveedores1` FOREIGN KEY (`clienteproveedors_id`) REFERENCES `clientesproveedors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_historial_labores_labores_tipos1` FOREIGN KEY (`labortipos_id`) REFERENCES `labores_tipos` (`id_labor_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `labores_tipos`
@@ -719,27 +790,36 @@ ALTER TABLE `lotes`
 -- Filtros para la tabla `lotesporactividades`
 --
 ALTER TABLE `lotesporactividades`
-  ADD CONSTRAINT `fk_lotes_por_actividades_lotes1` FOREIGN KEY (`lotes_id`) REFERENCES `lotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_lotes_por_actividades_actividades1` FOREIGN KEY (`actividads_id`) REFERENCES `actividads` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_lotes_por_actividades_actividades1` FOREIGN KEY (`actividads_id`) REFERENCES `actividads` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_lotes_por_actividades_lotes1` FOREIGN KEY (`lotes_id`) REFERENCES `lotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
+  ADD CONSTRAINT `fk_movimientos_choferes1` FOREIGN KEY (`chofers_id`) REFERENCES `chofers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_movimientos_clientes_proveedores1` FOREIGN KEY (`proveedorcliente_id`) REFERENCES `clientesproveedors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_movimientos_documentos_tipo1` FOREIGN KEY (`documentostipos_id`) REFERENCES `documentostipos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimientos_choferes1` FOREIGN KEY (`chofers_id`) REFERENCES `chofers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimientos_vehiculos1` FOREIGN KEY (`vehiculos_id`) REFERENCES `vehiculos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimientos_movimiento_motivos1` FOREIGN KEY (`movimientomotivos_id`) REFERENCES `movimientomotivos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_movimientos_lotes1` FOREIGN KEY (`lotes_id`) REFERENCES `lotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimientos_productos1` FOREIGN KEY (`productos_id`) REFERENCES `productos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_movimientos_movimiento_motivos1` FOREIGN KEY (`movimientomotivos_id`) REFERENCES `movimientomotivos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimientos_productos1` FOREIGN KEY (`productos_id`) REFERENCES `productos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimientos_vehiculos1` FOREIGN KEY (`vehiculos_id`) REFERENCES `vehiculos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `movimientoscaravanasgrupos`
+--
+ALTER TABLE `movimientoscaravanasgrupos`
+  ADD CONSTRAINT `fk_movimientoscaravanasgrupos_caravanas1` FOREIGN KEY (`caravanas_id`) REFERENCES `caravanas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimientoscaravanasgrupos_grupos1` FOREIGN KEY (`grupos_id`) REFERENCES `grupos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimientoscaravanasgrupos_movimientosganaderias1` FOREIGN KEY (`movimientosganaderias_id`) REFERENCES `movimientosganaderias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `movimientosganaderias`
 --
 ALTER TABLE `movimientosganaderias`
   ADD CONSTRAINT `fk_movimientosganaderias_documentostipos1` FOREIGN KEY (`documentostipos_id`) REFERENCES `documentostipos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimientosganaderias_grupos1` FOREIGN KEY (`grupos_id`) REFERENCES `grupos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_movimientosganaderias_grupos1` FOREIGN KEY (`grupos_id`) REFERENCES `grupos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimientosganaderias_movimientomotivos1` FOREIGN KEY (`movimientomotivos_id`) REFERENCES `movimientomotivos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `movimientosganaderiascuerpos`
